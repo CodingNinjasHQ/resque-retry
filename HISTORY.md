@@ -1,3 +1,13 @@
+# 1.7.6-cn.1 (2026-11-10, CodingNinjasHQ fork)
+
+* `MultipleWithRetrySuppression` looks the retry key up with `exists?` again,
+  exactly as upstream 1.7.6 does. The fork used to add the Resque namespace to
+  that key by hand, for redis-namespace versions that passed `exists?` through
+  untouched. redis-namespace 1.8.0 and later add the namespace themselves, so
+  the key was prefixed twice and never found: no failure was suppressed, and
+  every attempt of a retried job reached the failure backends.
+* Requires redis-namespace >= 1.8.0.
+
 # 1.7.6 (2021-08-06)
 
 * Fix Redis 4.3 breaking saving job failures with multiple failure backend

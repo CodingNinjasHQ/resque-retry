@@ -28,7 +28,10 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split($/)
   s.require_paths = %w[lib]
 
-  s.add_dependency "redis-namespace", ">= 1.2"
+  # 1.8.0 is the first redis-namespace that adds the namespace to the key of
+  # `exists?`. Older ones pass that command through without it, and
+  # MultipleWithRetrySuppression would then never find the retry key.
+  s.add_dependency "redis-namespace", ">= 1.8.0"
   s.add_dependency('resque', '>= 1.25', '< 3.0')
   s.add_dependency('resque-scheduler', '>= 4.0', '<6.0')
 
